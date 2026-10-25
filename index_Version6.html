@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="ConectaLeads" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>ConectaLeads</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --border: #e5e7eb;
+      --primary: #4f46e5;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    a { color: var(--primary); text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .topbar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 18px; }
+    .logo {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    }
+    .nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav button {
+      border: 0; background: none; color: var(--muted);
+      font: inherit; font-weight: 700; padding: 10px 12px; border-radius: 10px; cursor: pointer;
+    }
+    .nav button.active { background: rgba(79,70,229,.08); color: var(--primary); }
+    .btn {
+      display: inline-block; border: 0; background: var(--primary);
+      color: #fff; padding: 10px 16px; border-radius: 10px;
+      font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .btn.secondary { background: #eef2ff; color: #1f2937; }
+    .btn.danger { background: var(--danger); color: #fff; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(17,24,39,.03);
+    }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    label { font-size: 13px; font-weight: 700; color: var(--muted); }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff; color: var(--text);
+      border-radius: 10px; padding: 10px 12px;
+      font: inherit;
+    }
+    textarea { resize: vertical; min-height: 90px; }
+    .hidden { display: none !important; }
+    .muted { color: var(--muted); }
+    .divider { height: 1px; background: var(--border); margin: 18px 0; }
+    .inline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .status.free { background: #e0f2fe; color: #0f766e; }
+    .status.pro { background: #ede9fe; color: #5b21b6; }
+    .status.premium { background: #dcfce7; color: #166534; }
+    .client-list { display: grid; gap: 12px; }
+    .client-item {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      border: 1px solid var(--border); background: #fff; border-radius: 12px; padding: 14px;
+    }
+    .chip {
+      border: 1px solid var(--border); background: #f9fafb;
+      border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .plan {
+      background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 20px;
+    }
+    .plan.popular { border-color: var(--primary); box-shadow: 0 12px 28px rgba(79,70,229,.12); }
+    .price { font-size: 38px; font-weight: 900; margin: 10px 0; }
+    .price small { font-size: 14px; color: var(--muted); font-weight: 600; }
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50;
+    }
+    .modal {
+      width: min(500px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+    @media (max-width: 700px) {
+      .topbar-inner { flex-direction: column; align-items: flex-start; }
+      .nav { overflow: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="logo"></span>
+        <span>ConectaLeads</span>
+      </div>
+      <div class="nav">
+        <button class="nav-tab active" data-view="clientes">Clientes</button>
+        <button class="nav-tab" data-view="planes">Planes</button>
+        <button class="nav-tab" data-view="apps">Apps</button>
+        <button class="nav-tab" data-view="perfil">Perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="authSection">
+      <div class="card" style="max-width:500px; margin:60px auto;">
+        <h2 style="margin-top:0;">Inicia sesión</h2>
+
+        <div class="field">
+          <label>Correo</label>
+          <input id="email" type="email" placeholder="correo@ejemplo.com" />
+        </div>
+
+        <div class="field">
+          <label>Contraseña</label>
+          <input id="password" type="password" placeholder="••••••••" />
+        </div>
+
+        <div class="inline">
+          <button id="loginBtn" class="btn">Entrar</button>
+          <button id="signupBtn" class="btn secondary">Registrarme</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="appSection" class="hidden">
+      <div class="inline" style="justify-content:space-between; margin:18px 0;">
+        <div>
+          <div class="muted">Usuario</div>
+          <h2 id="userLabel" style="margin:4px 0 0 0;"></h2>
+        </div>
+        <div class="inline">
+          <span id="planBadge" class="status free">free</span>
+          <button id="logoutBtn" class="btn secondary">Cerrar sesión</button>
+        </div>
+      </div>
+
+      <div id="view-clientes" class="view">
+        <div class="card">
+          <div class="inline" style="justify-content:space-between;">
+            <h3 style="margin:0;">Clientes</h3>
+            <button id="addClientBtn" class="btn">+ Nuevo cliente</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label>Buscar</label>
+            <input id="searchInput" type="text" placeholder="Nombre, negocio, correo, teléfono" />
+          </div>
+
+          <div id="clientList" class="client-list"></div>
+        </div>
+      </div>
+
+      <div id="view-planes" class="view hidden">
+        <div class="card">
+          <h3 style="margin:0 0 16px;">Planes</h3>
+          <div class="plans">
+            <div class="plan">
+              <h3>Gratis</h3>
+              <div class="price">RD$0</div>
+              <p class="muted">Para empezar</p>
+              <ul>
+                <li>1 usuario</li>
+                <li>Hasta 10 clientes</li>
+                <li>Google Sheets</li>
+                <li>Soporte por email</li>
+              </ul>
+              <button class="btn secondary" data-plan="free">Elegir gratis</button>
+            </div>
+
+            <div class="plan popular">
+              <h3>Pro</h3>
+              <div class="price">USD $10 <small>/mes</small></div>
+              <ul>
+                <li>Hasta 3 usuarios</li>
+                <li>Hasta 100 clientes</li>
+                <li>Seguimientos y calendario</li>
+                <li>Soporte prioritario</li>
+              </ul>
+
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                <input type="hidden" name="business" value="dsolirosa@gmail.com">
+                <input type="hidden" name="item_name" value="ConectaLeads Pro">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="a3" value="10.00">
+                <input type="hidden" name="p3" value="1">
+                <input type="hidden" name="t3" value="M">
+                <input type="hidden" name="src" value="1">
+                <input type="hidden" name="sra" value="1">
+                <input type="hidden" name="return" value="https://TU_DOMINIO.com/thank-you">
+                <input type="hidden" name="cancel_return" value="https://TU_DOMINIO.com/cancel">
+                <button type="submit" class="btn">Pagar con PayPal</button>
+              </form>
+
+              <div style="margin-top:10px">
+                <button class="btn secondary" data-plan="pro">Activar Pro (manual)</button>
+              </div>
+            </div>
+
+            <div class="plan">
+              <h3>Premium</h3>
+              <div class="price">USD $20 <small>/mes</small></div>
+              <ul>
+                <li>Hasta 10 usuarios</li>
+                <li>Clientes ilimitados</li>
+                <li>Todo Pro</li>
+                <li>Capacitación personalizada</li>
+              </ul>
+
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                <input type="hidden" name="business" value="dsolirosa@gmail.com">
+                <input type="hidden" name="item_name" value="ConectaLeads Premium">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="a3" value="20.00">
+                <input type="hidden" name="p3" value="1">
+                <input type="hidden" name="t3" value="M">
+                <input type="hidden" name="src" value="1">
+                <input type="hidden" name="sra" value="1">
+                <input type="hidden" name="return" value="https://TU_DOMINIO.com/thank-you">
+                <input type="hidden" name="cancel_return" value="https://TU_DOMINIO.com/cancel">
+                <button type="submit" class="btn">Pagar con PayPal</button>
+              </form>
+
+              <div style="margin-top:10px">
+                <button class="btn secondary" data-plan="premium">Activar Premium (manual)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-apps" class="view hidden">
+        <div class="card">
+          <h3 style="margin-top:0;">Apps gratuitas</h3>
+          <div class="grid">
+            <div class="card">
+              <h4>Google Sheets</h4>
+              <p class="muted">Exporta clientes a una hoja maestra.</p>
+              <a href="https://sheets.google.com" target="_blank">Abrir</a>
+            </div>
+            <div class="card">
+              <h4>Google Calendar</h4>
+              <p class="muted">Agenda seguimientos con un toque.</p>
+              <a href="https://calendar.google.com" target="_blank">Abrir</a>
+            </div>
+            <div class="card">
+              <h4>WhatsApp Business</h4>
+              <p class="muted">Contacta rápido a tus clientes.</p>
+              <a href="https://business.whatsapp.com" target="_blank">Abrir</a>
+            </div>
+            <div class="card">
+              <h4>Google Forms</h4>
+              <p class="muted">Captura leads con formularios.</p>
+              <a href="https://forms.google.com" target="_blank">Abrir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-perfil" class="view hidden">
+        <div class="card">
+          <h3 style="margin-top:0;">Perfil</h3>
+          <div class="field">
+            <label>Email</label>
+            <input id="profileEmail" readonly />
+          </div>
+          <div class="field">
+            <label>Plan</label>
+            <input id="profilePlan" readonly />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="modal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:40;">
+    <div class="modal">
+      <h3 id="modalTitle" style="margin-top:0;"></h3>
+      <div id="modalBody"></div>
+      <div class="inline" style="justify-content:flex-end;margin-top:16px;">
+        <button id="closeModalBtn" class="btn secondary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="installBtn" style="display:none;position:fixed;right:18px;bottom:90px;z-index:25;background:var(--primary);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-weight:800;box-shadow:0 12px 24px rgba(79,70,229,.25);cursor:pointer;">Instalar app</button>
+
+  <script>
+    const supabaseUrl = 'https://TU_PROYECTO.supabase.co';
+    const supabaseKey = 'TU_ANON_KEY';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const state = { activeView: 'clientes', currentUser: null };
+
+    function showMessage(title, body) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalBody').innerHTML = `<p class="muted">${body}</p>`;
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closeMessage() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+
+    function setPlanBadge(plan) {
+      const badge = document.getElementById('planBadge');
+      badge.textContent = plan || 'free';
+      badge.className = 'status ' + (plan || 'free');
+    }
+
+    async function getProfile(userId) {
+      const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+      if (error) return null;
+      return data;
+    }
+
+    async function renderClients() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+
+      const { data, error } = await supabase
+        .from('clients')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      let items = data || [];
+      if (search) {
+        items = items.filter(c =>
+          [c.name, c.business, c.phone, c.email, c.stage].join(' ').toLowerCase().includes(search)
+        );
+      }
+
+      const list = document.getElementById('clientList');
+      if (!items.length) {
+        list.innerHTML = '<div class="card"><p class="muted">No tienes clientes aún. Haz clic en “+ Nuevo cliente”.</p></div>';
+        return;
+      }
+
+      list.innerHTML = items.map(client => `
+        <div class="client-item">
+          <div>
+            <strong>${client.name}</strong>
+            <div class="muted">${client.business || 'Sin negocio'}</div>
+            <div class="muted">${client.phone || ''}${client.phone && client.email ? ' · ' : ''}${client.email || ''}</div>
+            <div class="muted">Etapa: ${client.stage}</div>
+          </div>
+          <div class="inline">
+            <button class="chip" data-action="whatsapp" data-id="${client.id}">WhatsApp</button>
+            <button class="chip" data-action="edit" data-id="${client.id}">Editar</button>
+            <button class="chip" data-action="delete" data-id="${client.id}">Eliminar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function renderApp() {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const authSection = document.getElementById('authSection');
+      const appSection = document.getElementById('appSection');
+
+      if (!user) {
+        authSection.classList.remove('hidden');
+        appSection.classList.add('hidden');
+        return;
+      }
+
+      const profile = await getProfile(user.id);
+      state.currentUser = { ...user, plan: profile?.plan || 'free' };
+
+      authSection.classList.add('hidden');
+      appSection.classList.remove('hidden');
+
+      document.getElementById('userLabel').textContent = user.email;
+      document.getElementById('profileEmail').value = user.email;
+      document.getElementById('profilePlan').value = profile?.plan || 'free';
+      setPlanBadge(profile?.plan || 'free');
+
+      renderClients();
+      renderTabs();
+    }
+
+    function renderTabs() {
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === state.activeView);
+      });
+
+      document.querySelectorAll('.view').forEach(el => {
+        el.classList.toggle('hidden', el.id !== `view-${state.activeView}`);
+      });
+    }
+
+    document.querySelectorAll('.nav-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.activeView = btn.dataset.view;
+        renderTabs();
+      });
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        showMessage('Error de acceso', error.message);
+        return;
+      }
+
+      renderApp();
+    });
+
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        showMessage('Faltan datos', 'Ingresa correo y contraseña.');
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signUp({ email, password });
+
+      if (error) {
+        showMessage('No se pudo registrar', error.message);
+        return;
+      }
+
+      if (data.user) {
+        const { error: profileError } = await supabase.from('profiles').insert({
+          id: data.user.id,
+          email: data.user.email,
+          full_name: 'Nuevo usuario',
+          plan: 'free',
+          subscription_status: 'inactive'
+        });
+
+        if (profileError) {
+          console.error(profileError);
+        }
+
+        showMessage('Registro exitoso', 'Tu cuenta quedó creada. Ahora inicia sesión.');
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      state.currentUser = null;
+      renderApp();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', renderClients);
+
+    function openClientModal() {
+      const obj = {
+        id: crypto.randomUUID(),
+        name: '',
+        business: '',
+        phone: '',
+        email: '',
+        stage: 'Nuevo',
+        follow_up: '',
+        notes: ''
+      };
+
+      document.getElementById('modalTitle').textContent = 'Nuevo cliente';
+      document.getElementById('modalBody').innerHTML = `
+        <div class="field">
+          <label>Nombre</label>
+          <input id="clientName" value="${obj.name}" />
+        </div>
+        <div class="field">
+          <label>Negocio</label>
+          <input id="clientBusiness" value="${obj.business}" />
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input id="clientPhone" value="${obj.phone}" />
+        </div>
+        <div class="field">
+          <label>Correo</label>
+          <input id="clientEmail" value="${obj.email}" />
+        </div>
+        <div class="field">
+          <label>Etapa</label>
+          <select id="clientStage">
+            <option value="Nuevo" selected>Nuevo</option>
+            <option value="Contactado">Contactado</option>
+            <option value="Interesado">Interesado</option>
+            <option value="Cliente">Cliente</option>
+            <option value="Perdido">Perdido</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Próximo seguimiento</label>
+          <input id="clientFollowUp" type="date" value="${obj.follow_up}" />
+        </div>
+        <div class="field">
+          <label>Notas</label>
+          <textarea id="clientNotes">${obj.notes}</textarea>
+        </div>
+        <div class="inline">
+          <button id="saveClientBtn" class="btn" data-id="${obj.id}">Guardar</button>
+          <button id="cancelClientBtn" class="btn secondary">Cancelar</button>
+        </div>
+      `;
+
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    async function saveClient(clientId) {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const payload = {
+        user_id: user.id,
+        name: document.getElementById('clientName').value.trim(),
+        business: document.getElementById('clientBusiness').value.trim(),
+        phone: document.getElementById('clientPhone').value.trim(),
+        email: document.getElementById('clientEmail').value.trim(),
+        stage: document.getElementById('clientStage').value,
+        follow_up: document.getElementById('clientFollowUp').value || null,
+        notes: document.getElementById('clientNotes').value.trim()
+      };
+
+      if (!payload.name) {
+        showMessage('Falta nombre', 'El nombre del cliente es obligatorio.');
+        return;
+      }
+
+      const { error } = await supabase.from('clients').insert([payload]);
+      if (error) {
+        showMessage('Error', error.message);
+        return;
+      }
+
+      closeMessage();
+      renderClients();
+    }
+
+    async function deleteClient(clientId) {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const { error } = await supabase
+        .from('clients')
+        .delete()
+        .eq('id', clientId)
+        .eq('user_id', user.id);
+
+      if (error) {
+        showMessage('Error', error.message);
+        return;
+      }
+
+      renderClients();
+    }
+
+    document.getElementById('addClientBtn').addEventListener('click', () => openClientModal());
+
+    document.addEventListener('click', async (event) => {
+      const target = event.target;
+
+      if (target.dataset.action === 'delete') {
+        deleteClient(target.dataset.id);
+      }
+
+      if (target.dataset.action === 'whatsapp') {
+        const clientId = target.dataset.id;
+        const { data } = await supabase.from('clients').select('*').eq('id', clientId).single();
+        if (data && data.phone) {
+          const phone = data.phone.replace(/\D/g, '');
+          window.open(`https://wa.me/${phone}`, '_blank');
+        }
+      }
+
+      if (target.id === 'saveClientBtn') {
+        saveClient(target.dataset.id);
+      }
+
+      if (target.id === 'cancelClientBtn') {
+        closeMessage();
+      }
+
+      if (target.id === 'closeModalBtn') {
+        closeMessage();
+      }
+
+      if (target.dataset.plan) {
+        const plan = target.dataset.plan;
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { error } = await supabase
+          .from('profiles')
+          .update({ plan, subscription_status: 'active' })
+          .eq('id', user.id);
+
+        if (!error) {
+          showMessage('Plan actualizado', `Ahora tu plan es ${plan}.`);
+          renderApp();
+        } else {
+          showMessage('Error', error.message);
+        }
+      }
+    });
+
+    document.getElementById('closeModalBtn').addEventListener('click', closeMessage);
+
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+
+    supabase.auth.onAuthStateChange(() => {
+      renderApp();
+    });
+
+    renderApp();
+  </script>
+</body>
+</html>

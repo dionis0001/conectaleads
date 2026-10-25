@@ -1,0 +1,43 @@
+<button id="installBtn" style="
+  display:none;
+  position:fixed;
+  right:16px;
+  bottom:96px;
+  z-index:9999;
+  background:#4f46e5;
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:12px 18px;
+  font-weight:700;
+  box-shadow:0 10px 25px rgba(79,70,229,.35);
+  cursor:pointer;
+">Instalar app</button>
+
+<script name=ConectaLeads.html>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('Service Worker activo'))
+      .catch(err => console.log('Error SW:', err));
+  });
+}
+
+let deferredPrompt = null;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const choice = await deferredPrompt.userChoice;
+  console.log(choice.outcome);
+  deferredPrompt = null;
+  installBtn.style.display = 'none';
+});
+</script>
