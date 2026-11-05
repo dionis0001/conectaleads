@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Santana Barber Shop | Reserva tu cita</title>
+<meta name="description" content="Barbería en Avenida México, Santo Domingo. Cortes, barba, cuidado facial y masajes. Reserva en línea.">
+<style>
+:root{--ink:#0d0d0d;--coal:#1a1a1a;--line:#2e2e2e;--gold:#c9a24b;--tx:#f5f1e8;--mut:#9a948a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:0 20px 120px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;margin:0}
+h1{font-size:clamp(44px,12vw,84px);line-height:1}h2{font-size:26px;margin:40px 0 12px}
+header{padding:64px 0 8px}.sub{color:var(--mut);font-size:18px;margin:14px 0 0}
+.pill{display:inline-flex;align-items:center;gap:10px;margin-top:22px;border:1px solid var(--line);border-radius:99px;padding:8px 16px}
+.dot{width:10px;height:10px;border-radius:50%}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.stats div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}.stats b{display:block;font:400 28px Georgia,serif;color:var(--gold)}.stats span{color:var(--mut);font-size:14px}
+button,input,select{font:inherit;color:inherit}
+input,select{width:100%;background:var(--coal);border:1px solid var(--line);border-radius:8px;padding:13px;margin-top:10px}
+button{cursor:pointer;background:var(--coal);border:1px solid var(--line);border-radius:8px;padding:12px 14px;transition:border-color .15s,background .15s}
+button:hover{border-color:var(--gold)}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.on{border-color:var(--gold);background:#2a2415}.cta{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600;width:100%;margin-top:14px;padding:16px}
+.cta:disabled{opacity:.5;cursor:wait}
+.svc{display:block;width:100%;text-align:left;margin-top:10px}.svc .r{display:flex;justify-content:space-between;gap:10px}.svc small{color:var(--mut)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.muted{color:var(--mut)}.err{color:#ff8a80;margin-top:10px}.card{border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:10px 0}
+.row:first-of-type{border-top:0}.btns{display:flex;gap:6px;flex-wrap:wrap}.btns button{padding:8px 10px;font-size:14px}
+.sts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wa{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));background:#1faa59;color:#fff;border-radius:99px;padding:15px 22px;text-decoration:none;font-weight:600;box-shadow:0 6px 20px #0008}
+.hide{display:none}.ok{border-color:var(--gold)}
+#hero3d{height:280px;margin-top:18px;border-radius:16px;border:1px solid var(--line);background:radial-gradient(circle at 50% 40%,#2e2815,#0d0d0d 72%);overflow:hidden}#hero3d canvas{display:block}
+svg.i{fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.acc{display:flex;justify-content:space-between;gap:12px;margin-top:22px}.acc svg{width:36px;height:36px;opacity:.75}
+.ico{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}.ico div{border:1px solid var(--line);border-radius:12px;padding:18px;background:linear-gradient(160deg,#1f1c13,#111);transition:transform .2s,border-color .2s}.ico div:hover{transform:translateY(-3px);border-color:var(--gold)}.ico svg{width:46px;height:46px;margin-bottom:10px}.ico b{display:block}.ico span{color:var(--mut);font-size:14px}
+@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><main>
+<header><h1 id="nm">Santana Barber Shop</h1><p class="sub">Cortes, barba y cuidado facial en Avenida México. Reserva en un minuto.</p><p class="muted" style="margin:8px 0 0">4,5 de 5 · 225 reseñas</p>
+<div id="hero3d" aria-hidden="true"></div>
+<div class="acc" aria-hidden="true">
+<svg class="i" viewBox="0 0 48 48"><rect x="6" y="12" width="36" height="8" rx="2"/><path d="M10 20v14M16 20v14M22 20v14M28 20v14M34 20v14M40 20v14"/></svg>
+<svg class="i" viewBox="0 0 48 48"><rect x="16" y="5" width="16" height="28" rx="6"/><path d="M18 33h12v9H18zM20 38h8"/></svg>
+<svg class="i" viewBox="0 0 48 48"><rect x="20" y="4" width="8" height="16" rx="3"/><path d="M14 20h20l-3 18H17z"/></svg>
+<svg class="i" viewBox="0 0 48 48"><circle cx="24" cy="18" r="12"/><path d="M24 30v14M18 44h12"/></svg>
+<svg class="i" viewBox="0 0 48 48"><path d="M8 36L30 14l10 10L18 44z"/><path d="M30 14l6-6 8 8-4 8"/></svg></div>
+<div class="pill" aria-live="polite"><span class="dot" id="dot" style="background:#888"></span><span id="stl">Conectando…</span></div>
+<div class="stats" id="stats"></div><div id="nxt" class="muted" style="margin-top:12px"></div></header>
+
+<section id="pub">
+<div id="wl" class="card hide"></div>
+<h2>Elige tu servicio</h2><div id="svcs"><p class="muted">Cargando servicios…</p></div>
+<div id="step2" class="hide"><h2>Fecha y hora</h2><input type="date" id="day" aria-label="Fecha"><div class="slots" id="slots"></div><p id="noslot" class="muted hide">No hay horarios libres ese día.</p></div>
+<div id="step3" class="hide"><h2>Tus datos</h2><input id="cn" placeholder="Nombre" autocomplete="name"><input id="cp" placeholder="Teléfono" inputmode="tel" autocomplete="tel">
+<button class="cta" id="go">Reservar una cita</button><p class="err" id="err" role="alert"></p></div>
+<div id="done" class="card ok hide"></div>
+</section>
+
+<section id="adm" class="hide">
+<h2>Panel del barbero</h2>
+<div class="card"><p class="muted" style="margin-top:0">Estado actual. Se actualiza en la página pública al instante.</p><div class="sts" id="sbtn"></div></div>
+<div class="card"><b>Citas</b><div id="bk"><p class="muted">Aún no hay citas.</p></div></div>
+<div class="card"><b>Servicios</b><div id="sl"></div>
+<input id="sn" placeholder="Nombre del servicio"><input id="sp" type="number" min="0" placeholder="Precio (RD$)"><select id="sd"><option value="30">30 min</option><option value="60">60 min</option><option value="90">90 min</option></select>
+<button class="cta" id="addsvc">Agregar servicio</button></div>
+<div class="card"><b>Configuración</b><input id="cfn" placeholder="Nombre de la barbería"><input id="cfw" inputmode="tel" placeholder="WhatsApp con código de país (ej. 18095551234)">
+<input id="cfa" placeholder="Dirección">
+<label class="muted">Días libres (0 = domingo, separados por coma)<input id="cfx" placeholder="0"></label><button class="cta" id="savecfg">Guardar configuración</button></div>
+</section>
+<section><h2>Servicios</h2><div class="ico">
+<div><svg class="i" viewBox="0 0 48 48"><circle cx="13" cy="36" r="6"/><circle cx="35" cy="36" r="6"/><path d="M17 31L36 6M31 31L12 6"/></svg><b>Cortes de cabello</b><span>Para hombres</span></div>
+<div><svg class="i" viewBox="0 0 48 48"><path d="M8 36L30 14l10 10L18 44z"/><path d="M30 14l6-6 8 8-4 8"/></svg><b>Arreglo de barba</b><span>Perfilado y acabado limpio</span></div>
+<div><svg class="i" viewBox="0 0 48 48"><path d="M24 6C24 6 12 20 12 29a12 12 0 0 0 24 0C36 20 24 6 24 6z"/></svg><b>Cuidado facial</b><span>Limpieza e hidratación</span></div>
+<div><svg class="i" viewBox="0 0 48 48"><path d="M6 20q6-8 12 0t12 0 12 0M6 32q6-8 12 0t12 0 12 0"/></svg><b>Masajes</b><span>Para relajarte</span></div></div>
+<h2>Horarios</h2><div id="hrs"></div>
+<h2>Ubicación y contacto</h2><p style="margin:0">F273+PCH, Avenida México, Santo Domingo.</p>
+<div class="btns" style="margin-top:14px"><a href="https://www.google.com/maps/search/?api=1&query=F273%2BPCH%20Avenida%20M%C3%A9xico%20Santo%20Domingo" style="color:var(--gold)">Cómo llegar</a><a href="tel:+18097318202" style="color:var(--gold)">Llamar 809-731-8202</a><a href="tel:+18095306655" style="color:var(--gold)">Llamar 809-530-6655</a><a href="https://www.instagram.com/santanabarbershop7" style="color:var(--gold)">Instagram @santanabarbershop7</a></div></section>
+</main><a class="wa hide" id="wa" href="#" aria-label="Contactar por WhatsApp">WhatsApp</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const TZ="America/Santo_Domingo",$=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const SL={DISPONIBLE:["Disponible ahora","#3ecf6b"],OCUPADO:["Atendiendo a un cliente","#f5a524"],NO_DISPONIBLE:["No disponible","#ef5350"]};
+const HRS={0:["09:00","17:30"],1:["09:00","21:45"],2:["09:00","21:45"],3:["09:00","21:45"],4:["09:00","21:45"],5:["09:00","24:00"],6:["09:00","24:00"]},DN=["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+const f12=t=>{const n=m(t),h=Math.floor(n/60)%24,mi=n%60;return ((h%12)||12)+":"+String(mi).padStart(2,"0")+" "+(h<12?"a. m.":"p. m.")};
+const today=()=>new Date().toLocaleDateString("sv-SE",{timeZone:TZ});
+let db=null,admin=false,st="NO_DISPONIBLE",cfg={name:"Santana Barber Shop",off:[],wa:"18097318202",addr:"F273+PCH, Avenida México, Santo Domingo"},svcs=[],cells=new Map(),wait=[],clients=[],uid=null,sel=null,slot=null;
+
+const m=t=>{const[h,mi]=t.split(":").map(Number);return h*60+mi};
+const hm=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+const cid=(d,t)=>d+"_"+t.replace(":","");
+function freeStarts(day,dur){
+  const out=[];const dd=new Date(day+"T12:00:00").getDay();if(!day||cfg.off.includes(dd))return out;const[ho,hc]=HRS[dd];
+  const need=Math.ceil(dur/30);
+  for(let t=m(ho);t+need*30<=m(hc);t+=30){
+    if(new Date(`${day}T${hm(t)}:00-04:00`).getTime()<Date.now()+3600000)continue;
+    let ok=true;for(let i=0;i<need;i++)if(cells.has(cid(day,hm(t+i*30)))){ok=false;break}
+    if(ok)out.push(hm(t));
+  }return out;
+}
+function nextFree(){const d=new Date();for(let i=0;i<14;i++){const day=new Date(d.getTime()+i*864e5).toLocaleDateString("sv-SE",{timeZone:TZ});const f=freeStarts(day,30);if(f.length)return{day,t:f[0]}}return null}
+
+function drawHdr(){
+  const [l,c]=db?SL[st]||SL.NO_DISPONIBLE:["Sin conexión","#888"];$("stl").textContent=l;$("dot").style.background=c;$("nm").textContent=cfg.name;document.title=cfg.name+" | Reserva tu cita";
+  const t=today(),starts=[...cells.values()].filter(x=>x.start);
+  const hoy=starts.filter(x=>x.day===t&&x.status!=="completada").length,comp=starts.filter(x=>x.day===t&&x.status==="completada").length;
+  const waiting=wait.length;
+  $("stats").innerHTML=`<div><b>${hoy}</b><span>agendados hoy</span></div><div><b>${comp}</b><span>completados</span></div><div><b>${freeStarts(t,30).length}</b><span>horarios libres hoy</span></div><div><b>${waiting}</b><span>en espera</span></div>`;
+  const n=nextFree();$("nxt").textContent=n?`Próximo horario libre: ${new Date(n.day+"T12:00:00").toLocaleDateString("es-DO",{weekday:"long",day:"numeric",month:"long"})}, ${n.t}`:"Sin horarios libres en los próximos 14 días.";
+  const wa=$("wa");if(cfg.wa){wa.href="https://wa.me/"+cfg.wa.replace(/\D/g,"")+"?text="+encodeURIComponent("Hola, quiero información.");wa.classList.remove("hide")}
+  $("hrs").innerHTML=[1,2,3,4,5,6,0].map(d=>`<div class="row"><span>${DN[d]}</span><span class="muted">${cfg.off.includes(d)?"Cerrado":f12(HRS[d][0])+" a "+f12(HRS[d][1])}</span></div>`).join("");
+  const w=$("wl");
+  if(st==="OCUPADO"){w.classList.remove("hide");w.innerHTML=`<b>¿Llegaste sin cita?</b><p class="muted">Hay ${waiting} persona${waiting===1?"":"s"} esperando. No podemos calcular un tiempo exacto de espera.</p><input id="wn" placeholder="Tu nombre"><button class="cta" id="wj">Unirme a la lista de espera</button>`}else w.classList.add("hide");
+}
+function drawSvcs(){
+  const a=svcs.filter(s=>s.active!==false);
+  $("svcs").innerHTML=a.length?a.map(s=>`<button class="svc ${sel&&sel.id===s.id?"on":""}" data-s="${esc(s.id)}"><span class="r"><b>${esc(s.name)}</b><span style="color:var(--gold)">RD$ ${esc(s.price)}</span></span><small>${esc(s.min)} min</small></button>`).join(""):'<p class="muted">Aún no hay servicios disponibles.</p>';
+}
+function drawSlots(){
+  if(!sel)return;const day=$("day").value,f=freeStarts(day,sel.min);
+  $("slots").innerHTML=f.map(t=>`<button data-t="${t}" class="${slot===t?"on":""}">${t}</button>`).join("");
+  $("noslot").classList.toggle("hide",!day||f.length>0);$("step3").classList.toggle("hide",!slot);
+}
+function drawAdm(){
+  if(!admin)return;$("adm").classList.remove("hide");
+  $("sbtn").innerHTML=Object.entries(SL).map(([k,v])=>`<button data-st="${k}" class="${st===k?"on":""}">${v[0]}</button>`).join("");
+  $("sl").innerHTML=svcs.map(s=>`<div class="row"><span>${esc(s.name)} · RD$ ${esc(s.price)} · ${esc(s.min)} min${s.active===false?" (oculto)":""}</span><span class="btns"><button data-tg="${esc(s.id)}">${s.active===false?"Activar":"Ocultar"}</button><button data-dl="${esc(s.id)}">Eliminar</button></span></div>`).join("");
+  const c=[...clients].sort((a,b)=>(a.day+a.time).localeCompare(b.day+b.time));
+  $("bk").innerHTML=c.length?c.map(x=>`<div class="row"><span><b>${esc(x.name)}</b> · ${esc(x.phone)}<br><small class="muted">${esc(x.service)} · ${esc(x.day)} ${esc(x.time)} · ${esc(x.status)}</small></span><span class="btns">${x.status==="confirmada"?`<button data-cp="${esc(x.id)}">Completar</button><button data-cx="${esc(x.id)}">Cancelar</button>`:""}<a href="https://wa.me/${esc(String(x.phone).replace(/\D/g,""))}" style="color:var(--gold)">WhatsApp</a></span></div>`).join(""):'<p class="muted">Aún no hay citas.</p>';
+}
+const drawAll=()=>{drawHdr();drawSvcs();drawSlots();drawAdm()};
+
+async function init(){
+  const user=await claude.use("user");db=await claude.use("db");uid=user?await user.id():null;admin=user?user.canEdit():false;
+  if(!db){drawHdr();$("pub").innerHTML='<p class="muted">Inicia sesión en Claude para ver y reservar citas.</p>';return}
+  db.doc("config/status").onSnapshot(s=>{st=(s.data()||{}).status||"NO_DISPONIBLE";drawAll()});
+  db.doc("config/settings").onSnapshot(s=>{const d=s.data();if(d)cfg={...cfg,...d,off:d.off||[]};drawAll();if(admin&&d)fillCfg()});
+  db.collection("services").onSnapshot(q=>{svcs=q.docs.map(d=>({id:d.id,...d.data()}));drawAll()});
+  db.collection("cells").onSnapshot(q=>{cells=new Map(q.docs.map(d=>[d.id,d.data()||{}]));drawAll()});
+  db.collection("waitlist").onSnapshot(q=>{wait=q.docs.map(d=>({id:d.id,...d.data()}));drawAll()});
+  if(admin)db.collection("clients").onSnapshot(q=>{clients=q.docs.flatMap(d=>((d.data()||{}).list||[]).map(x=>({...x,uid:d.id})));drawAdm()});
+  drawAll();
+}
+function fillCfg(){if(document.activeElement&&["INPUT"].includes(document.activeElement.tagName))return;$("cfn").value=cfg.name||"";$("cfw").value=cfg.wa||"";$("cfa").value=cfg.addr||"";$("cfx").value=(cfg.off||[]).join(",")}
+
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("button");if(!b||!db)return;const D=b.dataset;
+  try{
+  if(D.s){sel=svcs.find(s=>s.id===D.s);slot=null;$("step2").classList.remove("hide");$("day").min=today();drawSvcs();drawSlots()}
+  else if(D.t){slot=D.t;drawSlots()}
+  else if(b.id==="go")await book();
+  else if(b.id==="wj"){const n=$("wn").value.trim();if(n.length<2)return;await db.collection("waitlist").doc("w"+Date.now()).set({name:n,at:Date.now()});$("wn").value=""}
+  else if(D.st){await db.doc("config/status").set({status:D.st})}
+  else if(b.id==="addsvc"){const n=$("sn").value.trim(),p=Number($("sp").value);if(!n||!(p>=0)||$("sp").value==="")return;await db.collection("services").doc("s"+Date.now()).set({name:n,price:p,min:Number($("sd").value),active:true});$("sn").value=$("sp").value=""}
+  else if(D.tg){const s=svcs.find(x=>x.id===D.tg);await db.doc("services/"+D.tg).update({active:s.active===false})}
+  else if(D.dl){await db.doc("services/"+D.dl).delete()}
+  else if(b.id==="savecfg"){await db.doc("config/settings").set({name:$("cfn").value.trim()||"Santana Barber Shop",wa:$("cfw").value.trim(),addr:$("cfa").value.trim(),off:$("cfx").value.split(",").map(x=>parseInt(x)).filter(x=>x>=0&&x<=6)})}
+  else if(D.cp){const c=clients.find(x=>x.id===D.cp);await setItem(c,{status:"completada"});await db.doc("cells/"+c.cells[0]).update({status:"completada"})}
+  else if(D.cx){const c=clients.find(x=>x.id===D.cx);for(const k of c.cells)await db.doc("cells/"+k).delete();await setItem(c,{status:"cancelada"})}
+  }catch(x){alert("No se pudo completar la acción: "+(x.message||x.code))}
+});
+$("day").addEventListener("change",()=>{slot=null;drawSlots()});
+
+async function setItem(c,patch){const ref=db.doc("clients/"+c.uid),snap=await ref.get();const list=((snap.data()||{}).list||[]).map(x=>x.id===c.id?{...x,...patch}:x);await ref.update({list})}
+async function book(){
+  const err=$("err");err.textContent="";const name=$("cn").value.trim(),phone=$("cp").value.trim();
+  if(!sel||!slot||name.length<2||!/^[0-9+() -]{7,20}$/.test(phone)){err.textContent="Completa servicio, horario, nombre y un teléfono válido.";return}
+  const day=$("day").value,need=Math.ceil(sel.min/30),keys=[],got=[];$("go").disabled=true;
+  for(let i=0;i<need;i++)keys.push(cid(day,hm(m(slot)+i*30)));
+  try{
+    for(let i=0;i<keys.length;i++){
+      const r=await db.doc("cells/"+keys[i]).acquire({holder:"r"+Date.now(),ttlMs:45*864e5,data:{day,time:hm(m(slot)+i*30),start:i===0,status:"confirmada"}});
+      if(!r.acquired)throw new Error("Ese horario ya fue reservado. Elige otro.");got.push(keys[i]);
+    }
+    const ref=db.doc("clients/"+uid),snap=await ref.get(),list=((snap.data()||{}).list||[]);list.push({id:keys[0],name,phone,service:sel.name,day,time:slot,status:"confirmada",cells:keys});await ref.set({list});
+    const txt=`Hola, soy ${name}. Reservé ${sel.name} el ${day} a las ${slot}.`;
+    $("done").classList.remove("hide");$("done").innerHTML=`<b>Cita confirmada</b><p>${esc(txt)}</p>${cfg.wa?`<a class="cta" style="display:block;text-align:center;text-decoration:none;border-radius:8px" href="https://wa.me/${cfg.wa.replace(/\D/g,"")}?text=${encodeURIComponent(txt)}">Enviar confirmación por WhatsApp</a>`:""}`;
+    $("step2").classList.add("hide");$("step3").classList.add("hide");sel=slot=null;drawSvcs();$("done").scrollIntoView({block:"center"});
+  }catch(x){for(const k of got)try{await db.doc("cells/"+k).delete()}catch{}err.textContent=x.message||"No se pudo reservar. Intenta de nuevo."}
+  $("go").disabled=false;
+}
+function scene3d(){
+  const el=$("hero3d");if(!window.THREE||!el)return;
+  try{
+    const H=280,W=()=>el.clientWidth||600,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+    const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W(),H);el.appendChild(r.domElement);
+    const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,W()/H,.1,100);cam.position.set(0,.2,9);
+    sc.add(new THREE.AmbientLight(0xffffff,.6));const dl=new THREE.DirectionalLight(0xffffff,.9);dl.position.set(4,5,6);sc.add(dl);
+    const cv=document.createElement("canvas");cv.width=64;cv.height=256;const g=cv.getContext("2d");g.fillStyle="#f5f1e8";g.fillRect(0,0,64,256);
+    for(let y=-64;y<=256;y+=64){g.fillStyle="#c0392b";g.beginPath();g.moveTo(0,y);g.lineTo(64,y+32);g.lineTo(64,y+48);g.lineTo(0,y+16);g.fill();g.fillStyle="#2c5fa8";g.beginPath();g.moveTo(0,y+32);g.lineTo(64,y+64);g.lineTo(64,y+80);g.lineTo(0,y+48);g.fill()}
+    const tex=new THREE.CanvasTexture(cv);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
+    const gold=new THREE.MeshPhongMaterial({color:0xc9a24b,shininess:120,specular:0xffe9a8}),steel=new THREE.MeshPhongMaterial({color:0xdadada,shininess:140,specular:0xffffff});
+    const pole=new THREE.Group();
+    pole.add(new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,3.6,48),new THREE.MeshPhongMaterial({map:tex,shininess:90})));
+    [1.9,-1.9].forEach(y=>{const c=new THREE.Mesh(new THREE.CylinderGeometry(.95,.95,.3,48),gold);c.position.y=y;pole.add(c)});
+    const top=new THREE.Mesh(new THREE.SphereGeometry(.45,32,16),gold);top.position.y=2.3;pole.add(top);pole.position.x=-2;sc.add(pole);
+    const sci=new THREE.Group();
+    [.22,-.22].forEach(a=>{const gr=new THREE.Group(),bl=new THREE.Mesh(new THREE.BoxGeometry(.16,2.2,.05),steel);bl.position.y=1.1;
+      const ring=new THREE.Mesh(new THREE.TorusGeometry(.42,.07,16,40),gold);ring.position.set(0,-1.15,0);
+      const sh=new THREE.Mesh(new THREE.BoxGeometry(.1,.7,.06),steel);sh.position.y=-.4;gr.add(bl,ring,sh);gr.rotation.z=a;sci.add(gr)});
+    sci.add(new THREE.Mesh(new THREE.SphereGeometry(.12,16,12),gold));sci.position.x=2;sc.add(sci);
+    const draw=t=>{if(!still){tex.offset.y=-t*.0003%1;sci.rotation.y=Math.sin(t*.0008)*.7;pole.rotation.y=t*.0004;sci.position.y=Math.sin(t*.0015)*.12}r.render(sc,cam)};
+    const loop=t=>{draw(t);requestAnimationFrame(loop)};still?draw(0):requestAnimationFrame(loop);
+    addEventListener("resize",()=>{r.setSize(W(),H);cam.aspect=W()/H;cam.updateProjectionMatrix();if(still)draw(0)});
+  }catch(e){el.style.display="none"}
+}
+scene3d();
+init();
+</script></body></html>
